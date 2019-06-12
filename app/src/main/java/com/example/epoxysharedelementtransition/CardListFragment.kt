@@ -10,10 +10,10 @@ import com.airbnb.epoxy.EpoxyRecyclerView
 import com.example.epoxysharedelementtransition.listController.MyCreditCardsController
 import com.example.epoxysharedelementtransition.model.CreditCard
 
-class MainFragment : Fragment() {
+class CardListFragment : Fragment() {
 
     companion object {
-        fun newInstance() = MainFragment()
+        fun newInstance() = CardListFragment()
 
         private val sampleCards = listOf(
             CreditCard(id = "001", cardNumber = "**** **** **** 0231", fullName = "John Doe", expiryDate = "06/22"),
@@ -22,12 +22,22 @@ class MainFragment : Fragment() {
         )
     }
 
-    private val listController = MyCreditCardsController()
+    private val listController = MyCreditCardsController { creditCardId ->
+        val cardForId = sampleCards.first { it.id == creditCardId }
+        val cardDetailsFragment = CardDetailsFragment.newInstance(cardForId)
+
+        activity!!.supportFragmentManager
+            .beginTransaction()
+//            .addSharedElement(holder.image, "kittenImage")
+            .replace(R.id.container, cardDetailsFragment)
+            .addToBackStack(null)
+            .commit()
+    }
 
     lateinit var epoxyRecyclerView: EpoxyRecyclerView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.main_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_card_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

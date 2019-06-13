@@ -2,6 +2,7 @@ package com.example.epoxysharedelementtransition.listModel
 
 import android.view.View
 import android.widget.TextView
+import androidx.core.view.ViewCompat
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyHolder
 import com.airbnb.epoxy.EpoxyModelClass
@@ -10,6 +11,9 @@ import com.example.epoxysharedelementtransition.R
 
 @EpoxyModelClass(layout = R.layout.list_item_credit_card)
 abstract class CreditCardModel : EpoxyModelWithHolder<CreditCardModel.Holder>() {
+
+    @EpoxyAttribute
+    lateinit var cardId: String
 
     @EpoxyAttribute
     lateinit var cardNumber: String
@@ -21,17 +25,16 @@ abstract class CreditCardModel : EpoxyModelWithHolder<CreditCardModel.Holder>() 
     lateinit var cardExpiryDate: String
 
     @EpoxyAttribute
-    var onClickListener: () -> Unit = {}
+    var onClickListener: (cardView: View) -> Unit = {}
 
     override fun bind(holder: Holder) {
         holder.cardNumber.text = cardNumber
         holder.cardName.text = cardName
         holder.cardExpiryDate.text = "Expires: $cardExpiryDate"
-        holder.cardContainer.setOnClickListener { onClickListener() }
+        holder.cardContainer.setOnClickListener { onClickListener(holder.cardContainer) }
 
-//        val transitionName = "card_" + id().toString()
-//        Timber.d("setting card details view transition name to: $transitionName")
-//        ViewCompat.setTransitionName(holder.cta, transitionName)
+//        ViewCompat.setTransitionName(holder.cardContainer, "cardContainer")
+        ViewCompat.setTransitionName(holder.cardContainer, "cardContainer_" + cardId)
     }
 
     class Holder : EpoxyHolder() {

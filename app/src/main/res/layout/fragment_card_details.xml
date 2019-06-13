@@ -5,9 +5,9 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#eee"
         tools:context=".CardListFragment">
 
+    <!--<androidx.recyclerview.widget.RecyclerView-->
     <com.airbnb.epoxy.EpoxyRecyclerView
             android:id="@+id/epoxy_recycler_view"
             android:layout_width="match_parent"

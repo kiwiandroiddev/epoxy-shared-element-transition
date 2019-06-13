@@ -9,7 +9,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
-        app:cardElevation="2dp">
+        app:cardMaxElevation="0dp"
+        app:strokeWidth="1dp"
+        app:strokeColor="#ccc"
+        app:cardElevation="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

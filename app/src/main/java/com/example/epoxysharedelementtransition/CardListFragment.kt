@@ -1,14 +1,18 @@
 package com.example.epoxysharedelementtransition
 
 import android.os.Bundle
+import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.transition.*
 import com.airbnb.epoxy.EpoxyRecyclerView
 import com.example.epoxysharedelementtransition.listController.MyCreditCardsController
 import com.example.epoxysharedelementtransition.model.CreditCard
+import java.util.concurrent.TimeUnit
 
 class CardListFragment : Fragment() {
 
@@ -18,21 +22,14 @@ class CardListFragment : Fragment() {
         private val sampleCards = listOf(
             CreditCard(id = "001", cardNumber = "**** **** **** 0231", fullName = "John Doe", expiryDate = "06/22"),
             CreditCard(id = "002", cardNumber = "**** **** **** 8093", fullName = "Mr. John M. Doe", expiryDate = "03/20"),
-            CreditCard(id = "003", cardNumber = "**** **** **** 3001", fullName = "JOHN DOE", expiryDate = "12/21")
+            CreditCard(id = "003", cardNumber = "**** **** **** 3001", fullName = "JOHN DOE", expiryDate = "12/21"),
+            CreditCard(id = "004", cardNumber = "**** **** **** 4151", fullName = "MR SMITH", expiryDate = "02/22"),
+            CreditCard(id = "005", cardNumber = "**** **** **** 6431", fullName = "DR JONES", expiryDate = "09/20"),
+            CreditCard(id = "006", cardNumber = "**** **** **** 9289", fullName = "M J WATSON", expiryDate = "11/22")
         )
     }
 
-    private val listController = MyCreditCardsController { creditCardId ->
-        val cardForId = sampleCards.first { it.id == creditCardId }
-        val cardDetailsFragment = CardDetailsFragment.newInstance(cardForId)
-
-        activity!!.supportFragmentManager
-            .beginTransaction()
-//            .addSharedElement(holder.image, "kittenImage")
-            .replace(R.id.container, cardDetailsFragment)
-            .addToBackStack(null)
-            .commit()
-    }
+    private val listController = MyCreditCardsController(this::onCardClicked)
 
     lateinit var epoxyRecyclerView: EpoxyRecyclerView
 
@@ -41,11 +38,62 @@ class CardListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        postponeEnterTransition()
         epoxyRecyclerView = view.findViewById(R.id.epoxy_recycler_view)
         epoxyRecyclerView.layoutManager = LinearLayoutManager(context)
         epoxyRecyclerView.setController(listController)
 
         listController.setData(sampleCards)
+
+        // start return transition after RecyclerView animations have finished
+        epoxyRecyclerView.viewTreeObserver.addOnPreDrawListener {
+            startPostponedEnterTransition()
+            true
+        }
     }
+
+    private fun onCardClicked(creditCardId: String, sharedElement: View) {
+        val detailsFragment = CardDetailsFragment.newInstance(getCardById(creditCardId))
+
+        val baseDurationMs = 250L
+
+        exitTransition = Fade()
+            .excludeTarget(sharedElement, true)
+            .setDuration(baseDurationMs)
+
+        reenterTransition = Fade()
+            .excludeTarget(sharedElement, true)
+            .setDuration(baseDurationMs)
+
+        detailsFragment.enterTransition = Fade()
+            .setDuration(baseDurationMs)
+            .setStartDelay(baseDurationMs * 2)
+            .excludeTarget(R.id.container, true)
+
+        detailsFragment.returnTransition = Fade()
+            .excludeTarget(R.id.container, true)
+            .setDuration(baseDurationMs)
+
+        detailsFragment.sharedElementEnterTransition = TransitionSet()
+            .setDuration(baseDurationMs)
+            .setStartDelay(baseDurationMs)
+            .addTransition(ChangeBounds())
+            .setInterpolator(FastOutSlowInInterpolator())
+
+        detailsFragment.sharedElementReturnTransition = TransitionSet()
+            .addTransition(ChangeBounds())
+            .setStartDelay(baseDurationMs)
+            .setInterpolator(FastOutSlowInInterpolator())
+
+        activity!!.supportFragmentManager
+            .beginTransaction()
+            .setReorderingAllowed(true)
+            .addSharedElement(sharedElement, "cardContainer_" + creditCardId)
+            .replace(R.id.container, detailsFragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    private fun getCardById(creditCardId: String) = sampleCards.first { it.id == creditCardId }
 
 }

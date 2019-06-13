@@ -2,14 +2,16 @@ package com.example.epoxysharedelementtransition
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.airbnb.epoxy.EpoxyRecyclerView
 import com.example.epoxysharedelementtransition.listController.CreditCardDetailsController
 import com.example.epoxysharedelementtransition.model.CreditCard
+import java.util.concurrent.TimeUnit
 
 class CardDetailsFragment : Fragment() {
 
@@ -22,11 +24,24 @@ class CardDetailsFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        postponeEnterTransition(3000, TimeUnit.MILLISECONDS)
+
         epoxyRecyclerView = view.findViewById(R.id.epoxy_recycler_view)
         epoxyRecyclerView.layoutManager = LinearLayoutManager(context)
         epoxyRecyclerView.setController(detailsController)
+        epoxyRecyclerView.itemAnimator = null
 
-        detailsController.setData(getCard())
+        loadCardDetailsAfterArtificialDelay()
+    }
+
+    private fun loadCardDetailsAfterArtificialDelay() {
+        Handler().postDelayed({
+            detailsController.setData(getCard())
+            epoxyRecyclerView.viewTreeObserver.addOnPreDrawListener {
+                startPostponedEnterTransition()
+                true
+            }
+        }, 300)
     }
 
     private fun getCard(): CreditCard {
@@ -46,3 +61,4 @@ class CardDetailsFragment : Fragment() {
     }
 
 }
+

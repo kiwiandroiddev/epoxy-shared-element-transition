@@ -1,4 +1,4 @@
-package com.example.epoxysharedelementtransition
+package com.kiwiandroiddev.epoxysharedelementtransition
 
 
 import android.os.Bundle
@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.airbnb.epoxy.EpoxyRecyclerView
-import com.example.epoxysharedelementtransition.listController.CreditCardDetailsController
-import com.example.epoxysharedelementtransition.model.CreditCard
+import com.kiwiandroiddev.epoxysharedelementtransition.listController.CreditCardDetailsController
+import com.kiwiandroiddev.epoxysharedelementtransition.model.CreditCard
 import java.util.concurrent.TimeUnit
 
 class CardDetailsFragment : Fragment() {

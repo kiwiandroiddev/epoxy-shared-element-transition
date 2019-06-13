@@ -1,4 +1,4 @@
-package com.example.epoxysharedelementtransition
+package com.kiwiandroiddev.epoxysharedelementtransition
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

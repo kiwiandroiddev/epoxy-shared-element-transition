@@ -1,7 +1,7 @@
-package com.example.epoxysharedelementtransition.listModel
+package com.kiwiandroiddev.epoxysharedelementtransition.listModel
 
 import com.airbnb.epoxy.EpoxyModelClass
-import com.example.epoxysharedelementtransition.R
+import com.kiwiandroiddev.epoxysharedelementtransition.R
 
 @Suppress("LeakingThis")
 @EpoxyModelClass

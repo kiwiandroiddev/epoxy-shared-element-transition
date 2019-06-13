@@ -1,4 +1,4 @@
-package com.example.epoxysharedelementtransition.listModel
+package com.kiwiandroiddev.epoxysharedelementtransition.listModel
 
 import android.view.View
 import android.widget.ImageView
@@ -8,9 +8,9 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyHolder
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
-import com.example.epoxysharedelementtransition.R
-import com.example.epoxysharedelementtransition.model.CardType
-import com.example.epoxysharedelementtransition.model.CardType.*
+import com.kiwiandroiddev.epoxysharedelementtransition.R
+import com.kiwiandroiddev.epoxysharedelementtransition.model.CardType
+import com.kiwiandroiddev.epoxysharedelementtransition.model.CardType.*
 
 @EpoxyModelClass(layout = R.layout.list_item_credit_card)
 abstract class CreditCardModel : EpoxyModelWithHolder<CreditCardModel.Holder>() {

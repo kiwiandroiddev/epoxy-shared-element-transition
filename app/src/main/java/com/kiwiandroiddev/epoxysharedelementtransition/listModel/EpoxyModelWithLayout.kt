@@ -1,4 +1,4 @@
-package com.example.epoxysharedelementtransition.listModel
+package com.kiwiandroiddev.epoxysharedelementtransition.listModel
 
 import android.view.LayoutInflater
 import android.view.View

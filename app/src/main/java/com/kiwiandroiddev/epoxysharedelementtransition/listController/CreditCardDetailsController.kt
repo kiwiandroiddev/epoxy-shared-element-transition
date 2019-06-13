@@ -1,9 +1,9 @@
-package com.example.epoxysharedelementtransition.listController
+package com.kiwiandroiddev.epoxysharedelementtransition.listController
 
 import com.airbnb.epoxy.TypedEpoxyController
-import com.example.epoxysharedelementtransition.listModel.creditCard
-import com.example.epoxysharedelementtransition.listModel.deleteButton
-import com.example.epoxysharedelementtransition.model.CreditCard
+import com.kiwiandroiddev.epoxysharedelementtransition.listModel.creditCard
+import com.kiwiandroiddev.epoxysharedelementtransition.listModel.deleteButton
+import com.kiwiandroiddev.epoxysharedelementtransition.model.CreditCard
 
 class CreditCardDetailsController : TypedEpoxyController<CreditCard>() {
 

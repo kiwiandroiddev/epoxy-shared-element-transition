@@ -1,4 +1,4 @@
-package com.example.epoxysharedelementtransition.model
+package com.kiwiandroiddev.epoxysharedelementtransition.model
 
 import java.io.Serializable
 

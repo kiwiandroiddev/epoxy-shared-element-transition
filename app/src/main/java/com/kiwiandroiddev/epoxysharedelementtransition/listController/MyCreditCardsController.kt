@@ -1,9 +1,9 @@
-package com.example.epoxysharedelementtransition.listController
+package com.kiwiandroiddev.epoxysharedelementtransition.listController
 
 import android.view.View
 import com.airbnb.epoxy.TypedEpoxyController
-import com.example.epoxysharedelementtransition.listModel.creditCard
-import com.example.epoxysharedelementtransition.model.CreditCard
+import com.kiwiandroiddev.epoxysharedelementtransition.listModel.creditCard
+import com.kiwiandroiddev.epoxysharedelementtransition.model.CreditCard
 
 class MyCreditCardsController(private val onClickListener: (cardId: String, cardView: View) -> Unit) : TypedEpoxyController<List<CreditCard>>() {
 

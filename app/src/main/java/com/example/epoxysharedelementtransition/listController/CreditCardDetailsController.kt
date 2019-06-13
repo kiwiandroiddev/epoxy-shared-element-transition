@@ -12,6 +12,7 @@ class CreditCardDetailsController : TypedEpoxyController<CreditCard>() {
             id(card.id)
             cardId(card.id)
             cardNumber(card.cardNumber)
+            cardType(card.cardType)
             cardName(card.fullName)
             cardExpiryDate(card.expiryDate)
         }

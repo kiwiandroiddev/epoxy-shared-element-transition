@@ -13,6 +13,7 @@ class MyCreditCardsController(private val onClickListener: (cardId: String, card
                 id(card.id)
                 cardId(card.id)
                 cardNumber(card.cardNumber)
+                cardType(card.cardType)
                 cardName(card.fullName)
                 cardExpiryDate(card.expiryDate)
                 onClickListener { cardView -> onClickListener(card.id, cardView) }

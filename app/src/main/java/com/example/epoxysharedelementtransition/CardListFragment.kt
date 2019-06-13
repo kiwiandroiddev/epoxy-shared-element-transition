@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.*
 import com.airbnb.epoxy.EpoxyRecyclerView
 import com.example.epoxysharedelementtransition.listController.MyCreditCardsController
+import com.example.epoxysharedelementtransition.model.CardType
 import com.example.epoxysharedelementtransition.model.CreditCard
 import java.util.concurrent.TimeUnit
 
@@ -20,12 +21,12 @@ class CardListFragment : Fragment() {
         fun newInstance() = CardListFragment()
 
         private val sampleCards = listOf(
-            CreditCard(id = "001", cardNumber = "**** **** **** 0231", fullName = "John Doe", expiryDate = "06/22"),
-            CreditCard(id = "002", cardNumber = "**** **** **** 8093", fullName = "Mr. John M. Doe", expiryDate = "03/20"),
-            CreditCard(id = "003", cardNumber = "**** **** **** 3001", fullName = "JOHN DOE", expiryDate = "12/21"),
-            CreditCard(id = "004", cardNumber = "**** **** **** 4151", fullName = "MR SMITH", expiryDate = "02/22"),
-            CreditCard(id = "005", cardNumber = "**** **** **** 6431", fullName = "DR JONES", expiryDate = "09/20"),
-            CreditCard(id = "006", cardNumber = "**** **** **** 9289", fullName = "M J WATSON", expiryDate = "11/22")
+            CreditCard(id = "001", cardNumber = "**** **** **** 0231", cardType = CardType.VISA, fullName = "John Doe", expiryDate = "06/22"),
+            CreditCard(id = "002", cardNumber = "**** **** **** 8093", cardType = CardType.MASTERCARD, fullName = "Mr. John M. Doe", expiryDate = "03/20"),
+            CreditCard(id = "003", cardNumber = "**** **** **** 3001", cardType = CardType.AMEX, fullName = "JOHN DOE", expiryDate = "12/21"),
+            CreditCard(id = "004", cardNumber = "**** **** **** 4151", cardType = CardType.VISA, fullName = "MR SMITH", expiryDate = "02/22"),
+            CreditCard(id = "005", cardNumber = "**** **** **** 6431", cardType = CardType.MASTERCARD, fullName = "DR JONES", expiryDate = "09/20"),
+            CreditCard(id = "006", cardNumber = "**** **** **** 9289", cardType = CardType.AMEX, fullName = "M J WATSON", expiryDate = "11/22")
         )
     }
 
@@ -45,7 +46,7 @@ class CardListFragment : Fragment() {
 
         listController.setData(sampleCards)
 
-        // start return transition after RecyclerView animations have finished
+        // start return transition only after RecyclerView animations have finished
         epoxyRecyclerView.viewTreeObserver.addOnPreDrawListener {
             startPostponedEnterTransition()
             true
@@ -88,7 +89,7 @@ class CardListFragment : Fragment() {
         activity!!.supportFragmentManager
             .beginTransaction()
             .setReorderingAllowed(true)
-            .addSharedElement(sharedElement, "cardContainer_" + creditCardId)
+            .addSharedElement(sharedElement, "cardContainer_$creditCardId")
             .replace(R.id.container, detailsFragment)
             .addToBackStack(null)
             .commit()

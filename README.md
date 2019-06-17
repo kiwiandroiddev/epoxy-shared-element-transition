@@ -1,6 +1,6 @@
 # epoxy-shared-element-transition
 
-Demonstrates how to perform a shared element transition of a list item across two fragments with EpoxyRecyclerViews.
+Demonstrates how to perform a shared element transition of a list item across two fragments with [EpoxyRecyclerViews](https://github.com/airbnb/epoxy).
 
 Some key discoveries/gotchas were:
  - `postponeEnterTransition()` has no effect unless `setReorderingAllowed(true)` is called on the fragment transaction
